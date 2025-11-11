@@ -15,6 +15,7 @@ namespace _Scripts.Inventory
         [SerializeField] private ItemTooltipUI _tooltip;
             
         public ItemSlot[,] Slots;
+        public bool IsTooltipVisible => _tooltip.gameObject.activeSelf;
         
         public void Initialize(int width, int height)
         {
@@ -46,7 +47,8 @@ namespace _Scripts.Inventory
 
         public void MoveTooltip()
         {
-            _tooltip.transform.position = Input.mousePosition;
+            var offset = _tooltip.GetComponent<RectTransform>().sizeDelta / 2;
+            _tooltip.transform.position = Input.mousePosition + (Vector3)offset;
         }
     }
 }

@@ -7,14 +7,17 @@ using Zenject;
 
 namespace _Scripts.Item
 {
-    public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+    public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [Inject] private InventoryUIController _inventoryUIController;
-
-        private ItemSlot _itemSlot;
+        [Inject] private DragUIController _dragUIController;
 
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _countText;
+
+        public ItemSlot Slot => _itemSlot;
+        
+        private ItemSlot _itemSlot;
 
         public void Initialize(ItemSlot itemSlot)
         {
@@ -40,7 +43,7 @@ namespace _Scripts.Item
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_itemSlot.IsEmpty) return;
+            if (_itemSlot.IsEmpty || _dragUIController.IsDragging) return;
             _inventoryUIController.ShowTooltip(_itemSlot);
         }
 
@@ -52,8 +55,39 @@ namespace _Scripts.Item
 
         public void OnPointerMove(PointerEventData eventData)
         {
-            if (_itemSlot.IsEmpty) return;
+            if (_itemSlot.IsEmpty || _dragUIController.IsDragging) return;
+            
+            if (!_inventoryUIController.IsTooltipVisible) _inventoryUIController.ShowTooltip(_itemSlot);
             _inventoryUIController.MoveTooltip();
+        }
+        
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _dragUIController.SplitStack(this);
+            }
+        }
+        
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            _dragUIController.BeginDrag(this);
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            _dragUIController.Drag();
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            var target = eventData.pointerCurrentRaycast.gameObject
+                ? eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlotUI>()
+                : null;
+
+            Debug.Log(target);
+
+            _dragUIController.EndDrag(target);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace _Scripts.Installers
     public class InventoryInstaller : MonoInstaller
     {
         [SerializeField] private InventoryUIController _inventoryUIController;
+        [SerializeField] private DragUIController _dragUIController;
         
         public override void InstallBindings()
         {
@@ -14,6 +15,11 @@ namespace _Scripts.Installers
             
             Container.Bind<InventoryUIController>()
                 .FromInstance(_inventoryUIController)
+                .AsSingle()
+                .NonLazy();
+            
+            Container.Bind<DragUIController>()
+                .FromInstance(_dragUIController)
                 .AsSingle()
                 .NonLazy();
         }

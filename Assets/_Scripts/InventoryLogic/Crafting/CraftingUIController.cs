@@ -1,4 +1,4 @@
-﻿using System;
+﻿using _Scripts.Configs;
 using _Scripts.InventoryLogic.Inventory;
 using _Scripts.InventoryLogic.Item;
 using UnityEngine;
@@ -14,7 +14,6 @@ namespace _Scripts.InventoryLogic.Crafting
         [Inject] private InventoryController _inventoryController;
 
         [SerializeField] private CraftingResultUI _craftingResultUI;
-        
         [SerializeField] private GridLayoutGroup _grid;
         [SerializeField] private ItemSlotUI _slotPrefab;
         [SerializeField] private Button _craftButton;
@@ -25,7 +24,7 @@ namespace _Scripts.InventoryLogic.Crafting
         {
             _craftButton.onClick.AddListener(OnCraftButtonPressed);
         }
-        
+
         private void OnDisable()
         {
             _craftButton.onClick.RemoveListener(OnCraftButtonPressed);
@@ -34,7 +33,6 @@ namespace _Scripts.InventoryLogic.Crafting
         public void Initialize()
         {
             Slots = new ItemSlot[3, 3];
-
             _grid.constraintCount = 3;
 
             for (int y = 0; y < 3; y++)
@@ -43,52 +41,46 @@ namespace _Scripts.InventoryLogic.Crafting
                 {
                     Slots[x, y] = new ItemSlot();
 
-                    var slotUI = _diContainer.InstantiatePrefabForComponent<ItemSlotUI>(_slotPrefab, _grid.transform);
-                    slotUI.Initialize(Slots[x, y]);
-                    
+                    var ui = _diContainer.InstantiatePrefabForComponent<ItemSlotUI>(_slotPrefab, _grid.transform);
+                    ui.Initialize(Slots[x, y]);
+
                     Slots[x, y].OnInventorySlotChanged += Recalculate;
                 }
             }
-            
+
             _craftingResultUI.Initialize();
             Recalculate();
         }
-        
+
         private void Recalculate()
         {
-            var recipe = _craftingController.FindMatch(Slots);
-
-            if (recipe == null)
+            if (_craftingController.FindMatch(Slots, out RecipeData recipe, out var used))
+            {
+                _craftingResultUI.SetResult(recipe.Result, recipe.ResultCount);
+            }
+            else
             {
                 _craftingResultUI.ClearResult();
-                return;
             }
-
-            _craftingResultUI.SetResult(recipe.Result, recipe.ResultCount);
         }
-        
+
         private void OnCraftButtonPressed()
         {
-            var recipe = _craftingController.FindMatch(Slots);
-
-            if (recipe == null)
+            if (_craftingController.FindMatch(Slots, out RecipeData recipe, out var used))
             {
-                Debug.Log("No matching recipe.");
-                return;
+                if (_inventoryController.TryAddItem(recipe.Result, recipe.ResultCount))
+                {
+                    _craftingController.PayCraft(used);
+
+                    _craftingResultUI.ClearResult();
+
+                    Recalculate();
+                }
+                else
+                {
+                    Debug.LogWarning("Inventory is full!");
+                }
             }
-
-            // 1. Удаляем ресурсы
-            if (!_inventoryController.TryAddItem(recipe.Result, recipe.ResultCount)) return;
-            
-            _craftingController.PayCraft(Slots, recipe);
-
-            // 2. Добавляем рецепт в инвентарь
-
-            // 3. Очищаем визуальный слот результата
-            _craftingResultUI.ClearResult();
-
-            // 4. Пересчёт — возможно после траты ресурсов появляется новый валидный рецепт
-            Recalculate();
         }
     }
 }

@@ -8,11 +8,10 @@ namespace _Scripts.Configs
     {
         public ItemData Result;
         public int ResultCount = 1;
-
         public bool IsShaped;
 
         public Ingredient[] Ingredients;
-        [SerializeField] public Ingredient[] Pattern = new Ingredient[9];
+        public Ingredient[] Pattern = new Ingredient[9];
 
         [Serializable]
         public struct Ingredient

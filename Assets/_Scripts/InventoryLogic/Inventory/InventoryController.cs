@@ -25,7 +25,6 @@ namespace _Scripts.InventoryLogic.Inventory
         
         public bool TryAddItem(ItemData item, int count)
         {
-            // 1. Сначала пытаемся добавить в существующие стаки
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
@@ -40,7 +39,6 @@ namespace _Scripts.InventoryLogic.Inventory
                 }
             }
 
-            // 2. Если остались предметы — ищем пустой слот
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
@@ -55,14 +53,11 @@ namespace _Scripts.InventoryLogic.Inventory
                 }
             }
 
-            // 3. Если нет места
-            UnityEngine.Debug.LogWarning("Inventory is full! Item was not added.");
             return false;
         }
         
         public void SortInventory()
         {
-            // 1. Собрать все предметы в список (только занятые)
             List<(ItemData item, int count)> all = new();
 
             for (int y = 0; y < Height; y++)
@@ -75,23 +70,19 @@ namespace _Scripts.InventoryLogic.Inventory
                 }
             }
 
-            // 2. Объединить одинаковые предметы
             var merged = all
                 .GroupBy(i => i.item)
                 .Select(g => (item: g.Key, count: g.Sum(x => x.count)))
                 .ToList();
 
-            // 3. Сортировать по ID или порядку в ItemsPool
             merged = merged
-                .OrderBy(m => m.item.ID)     // ✅ сортировка по ID
+                .OrderBy(m => m.item.ID)     
                 .ToList();
 
-            // 4. Полностью очистить инвентарь
             for (int y = 0; y < Height; y++)
             for (int x = 0; x < Width; x++)
                 _inventoryUIController.Slots[x, y].ClearItem();
 
-            // 5. Записать заново СЛЕВА НАПРАВО БЕЗ ДЫР
             int index = 0;
 
             foreach (var entry in merged)

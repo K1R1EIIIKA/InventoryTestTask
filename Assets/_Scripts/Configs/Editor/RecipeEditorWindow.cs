@@ -6,7 +6,7 @@ namespace _Scripts.Configs.Editor
 {
     public class RecipeEditorWindow : EditorWindow
     {
-        private List<RecipeData> _recipes = new List<RecipeData>();
+        private readonly List<RecipeData> _recipes = new List<RecipeData>();
         private Vector2 _listScroll;
         private Vector2 _editScroll;
 
@@ -104,20 +104,16 @@ namespace _Scripts.Configs.Editor
    
             if (newName != _selected.name)
             {
-                // Переименовываем сам объект
                 _selected.name = newName;
 
-                // Путь к файлу .asset
                 string path = AssetDatabase.GetAssetPath(_selected);
 
                 if (!string.IsNullOrEmpty(path))
                 {
-                    // Имя файла без расширения
                     string fileName = System.IO.Path.GetFileNameWithoutExtension(path);
 
                     if (fileName != newName)
                     {
-                        // Переименовать физический файл
                         AssetDatabase.RenameAsset(path, newName);
                         AssetDatabase.SaveAssets();
                     }
@@ -201,31 +197,25 @@ namespace _Scripts.Configs.Editor
 
         private void CreateNewRecipe()
         {
-            // 1. Создаём объект
-            RecipeData recipe = ScriptableObject.CreateInstance<RecipeData>();
+            RecipeData recipe = CreateInstance<RecipeData>();
             recipe.name = "NewRecipe";
 
-            // 2. Путь к папке
             const string folderPath = "Assets/Resources/Configs/Recipes";
 
-            // 3. Создать папку, если её нет
             if (!AssetDatabase.IsValidFolder(folderPath))
             {
                 AssetDatabase.CreateFolder("Assets/Resources", "Configs");
                 AssetDatabase.CreateFolder("Assets/Resources/Configs", "Recipes");
             }
 
-            // 4. Сделать имя уникальным
             string uniquePath = AssetDatabase.GenerateUniqueAssetPath(
                 $"{folderPath}/NewRecipe.asset"
                 );
 
-            // 5. Создать asset
             AssetDatabase.CreateAsset(recipe, uniquePath);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            // 6. Добавить в список
             _recipes.Add(recipe);
             _selected = recipe;
         }

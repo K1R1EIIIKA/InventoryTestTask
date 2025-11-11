@@ -99,8 +99,7 @@ namespace _Scripts.InventoryLogic.Crafting
 
             return true;
         }
-
-
+        
         private bool MatchShaped(RecipeData recipe, ItemSlot[,] grid)
         {
             for (int y = 0; y < 3; y++)

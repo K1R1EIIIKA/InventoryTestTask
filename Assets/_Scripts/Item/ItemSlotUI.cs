@@ -1,12 +1,13 @@
 ﻿using _Scripts.Inventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
 namespace _Scripts.Item
 {
-    public class ItemSlotUI : MonoBehaviour
+    public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
     {
         [Inject] private InventoryUIController _inventoryUIController;
 
@@ -35,6 +36,24 @@ namespace _Scripts.Item
                 _icon.sprite = _itemSlot.Item.Icon;
                 _countText.text = _itemSlot.Item.Stackable ? _itemSlot.Count.ToString() : string.Empty;
             }
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (_itemSlot.IsEmpty) return;
+            _inventoryUIController.ShowTooltip(_itemSlot);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (_itemSlot.IsEmpty) return;
+            _inventoryUIController.HideTooltip();
+        }
+
+        public void OnPointerMove(PointerEventData eventData)
+        {
+            if (_itemSlot.IsEmpty) return;
+            _inventoryUIController.MoveTooltip();
         }
     }
 }

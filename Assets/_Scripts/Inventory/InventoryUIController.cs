@@ -2,13 +2,17 @@
 using _Scripts.Item;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace _Scripts.Inventory
 {
     public class InventoryUIController : MonoBehaviour
     {
+        [Inject] private DiContainer _diContainer;
+        
         [SerializeField] private GridLayoutGroup _container;
         [SerializeField] private ItemSlotUI _itemSlotUIPrefab;
+        [SerializeField] private ItemTooltipUI _tooltip;
             
         public ItemSlot[,] Slots;
         
@@ -24,10 +28,25 @@ namespace _Scripts.Inventory
                 {
                     Slots[x, y] = new ItemSlot();
                     
-                    var itemSlotUI = Instantiate(_itemSlotUIPrefab, _container.transform);
+                    var itemSlotUI = _diContainer.InstantiatePrefabForComponent<ItemSlotUI>(_itemSlotUIPrefab, _container.transform);
                     itemSlotUI.Initialize(Slots[x, y]);
                 }
             }
+        }
+        
+        public void ShowTooltip(ItemSlot slot)
+        {
+            _tooltip.Show(slot);
+        }
+
+        public void HideTooltip()
+        {
+            _tooltip.Hide();
+        }
+
+        public void MoveTooltip()
+        {
+            _tooltip.transform.position = Input.mousePosition;
         }
     }
 }

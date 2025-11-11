@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 6
-  <ItemName>k__BackingField: 
+  <ItemName>k__BackingField: Wood
+  <Description>k__BackingField: Craft sticks
   <Icon>k__BackingField: {fileID: 21300000, guid: 0dee1bca5739e064dbed1c1e434b464f, type: 3}
   <Stackable>k__BackingField: 1
   <MaxStack>k__BackingField: 99

@@ -13,15 +13,18 @@ namespace _Scripts.Inventory
         [Inject] private InventoryController _inventoryController;
         
         [SerializeField] private Button _fillButton;
+        [SerializeField] private Button _clearButton;
 
         private void OnEnable()
         {
             _fillButton.onClick.AddListener(FillRandomItems);
+            _clearButton.onClick.AddListener(ClearItems);
         }
         
         private void OnDisable()
         {
             _fillButton.onClick.RemoveListener(FillRandomItems);
+            _clearButton.onClick.RemoveListener(ClearItems);
         }
 
         private void FillRandomItems()
@@ -34,6 +37,18 @@ namespace _Scripts.Inventory
 
                     var item = GetRandomItem();
                     slot.SetItem(item, Random.Range(1, item.MaxStack + 1));
+                }
+            }
+        }
+        
+        private void ClearItems()
+        {
+            for (int y = 0; y < _inventoryController.Height; y++)
+            {
+                for (int x = 0; x < _inventoryController.Width; x++)
+                {
+                    var slot = _inventoryUIController.Slots[x, y];
+                    slot.ClearItem();
                 }
             }
         }

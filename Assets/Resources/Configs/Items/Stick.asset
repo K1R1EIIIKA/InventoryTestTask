@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Stick
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 5
-  <ItemName>k__BackingField: 
+  <ItemName>k__BackingField: Stick
+  <Description>k__BackingField: Craft tools
   <Icon>k__BackingField: {fileID: 21300000, guid: cd58fa5ad905fc04aae82d68b023e511, type: 3}
   <Stackable>k__BackingField: 1
   <MaxStack>k__BackingField: 99

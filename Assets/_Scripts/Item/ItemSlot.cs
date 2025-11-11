@@ -14,7 +14,7 @@ namespace _Scripts.Item
 
         public bool CanStack(ItemData item) =>
             !IsEmpty && Item == item && Item.Stackable;
-        
+
         public void SetItem(ItemData item, int count)
         {
             Item = item;
@@ -30,9 +30,9 @@ namespace _Scripts.Item
             int moved = Mathf.Min(capacity, amount);
 
             Count += moved;
-            
+
             OnItemSlotChanged?.Invoke();
-            
+
             return amount - moved;
         }
 
@@ -45,10 +45,17 @@ namespace _Scripts.Item
 
             if (Count == 0)
                 Item = null;
-            
+
             OnItemSlotChanged?.Invoke();
 
             return amount - removed;
+        }
+        
+        public void ClearItem()
+        {
+            Item = null;
+            Count = 0;
+            OnItemSlotChanged?.Invoke();
         }
     }
 }

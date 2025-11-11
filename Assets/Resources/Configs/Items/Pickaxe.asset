@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Pickaxe
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 4
-  <ItemName>k__BackingField: 
+  <ItemName>k__BackingField: Pickaxe
+  <Description>k__BackingField: Mine diamonds
   <Icon>k__BackingField: {fileID: 21300000, guid: 6ff6d2a3a7ab1c249b674296527e0f64, type: 3}
   <Stackable>k__BackingField: 0
   <MaxStack>k__BackingField: 1

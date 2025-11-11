@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 1
-  <ItemName>k__BackingField: 
+  <ItemName>k__BackingField: Axe
+  <Description>k__BackingField: Chop
   <Icon>k__BackingField: {fileID: 21300000, guid: dac12e41f9214a44da8e43da4c16df41, type: 3}
   <Stackable>k__BackingField: 0
   <MaxStack>k__BackingField: 1

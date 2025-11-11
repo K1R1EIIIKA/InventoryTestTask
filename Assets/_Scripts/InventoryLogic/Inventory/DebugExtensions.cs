@@ -1,4 +1,5 @@
 ﻿using _Scripts.Configs;
+using _Scripts.InventoryLogic.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -8,8 +9,8 @@ namespace _Scripts.InventoryLogic.Inventory
 {
     public class DebugExtensions : MonoBehaviour
     {
-        [Inject] private InventoryUIController _inventoryUIController;
-        [Inject] private InventoryController _inventoryController;
+        [Inject] private IInventoryUIController _inventoryUIController;
+        [Inject] private IInventoryController _inventoryController;
         
         [SerializeField] private Button _fillButton;
         [SerializeField] private Button _clearButton;
@@ -60,8 +61,6 @@ namespace _Scripts.InventoryLogic.Inventory
                 }
             }
         }
-        
-        
         
         private ItemData GetRandomItem()
         {

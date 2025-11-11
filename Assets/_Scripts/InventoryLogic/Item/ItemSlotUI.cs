@@ -1,4 +1,5 @@
 ﻿using _Scripts.InventoryLogic.Crafting;
+using _Scripts.InventoryLogic.Interfaces;
 using _Scripts.InventoryLogic.Inventory;
 using TMPro;
 using UnityEngine;
@@ -10,9 +11,9 @@ namespace _Scripts.InventoryLogic.Item
 {
     public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [Inject] private InventoryUIController _inventoryUIController;
-        [Inject] private DragUIController _dragUIController;
-        [Inject] private CraftingUIController _craftingUIController;
+        [Inject] private IInventoryUIController _inventoryUIController;
+        [Inject] private IDragUIController _dragUIController;
+        [Inject] private ICraftingUIController _craftingUIController;
 
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _countText;

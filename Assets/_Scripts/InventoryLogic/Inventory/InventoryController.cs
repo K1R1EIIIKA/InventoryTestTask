@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Scripts.Configs;
+using _Scripts.InventoryLogic.Interfaces;
 using UnityEngine;
 using Zenject;
 
 namespace _Scripts.InventoryLogic.Inventory
 {
-    public class InventoryController
+    public class InventoryController : IInventoryController
     {
-        [Inject] private InventoryUIController _inventoryUIController;
+        [Inject] private IInventoryUIController _inventoryUIController;
         [Inject] private InventoryConfig _inventoryConfig;
         
         public int Width { get; private set; }

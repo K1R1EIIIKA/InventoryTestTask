@@ -1,4 +1,5 @@
 ﻿using _Scripts.InventoryLogic.Crafting;
+using _Scripts.InventoryLogic.Interfaces;
 using _Scripts.InventoryLogic.Inventory;
 using UnityEngine;
 using Zenject;
@@ -13,20 +14,20 @@ namespace _Scripts.Installers
         
         public override void InstallBindings()
         {
-            Container.Bind<InventoryController>().AsSingle().NonLazy();
-            Container.Bind<CraftingController>().AsSingle().NonLazy();
+            Container.Bind<IInventoryController>().To<InventoryController>().AsSingle().NonLazy();
+            Container.Bind<ICraftingController>().To<CraftingController>().AsSingle().NonLazy();
             
-            Container.Bind<InventoryUIController>()
+            Container.Bind<IInventoryUIController>()
                 .FromInstance(_inventoryUIController)
                 .AsSingle()
                 .NonLazy();
             
-            Container.Bind<DragUIController>()
+            Container.Bind<IDragUIController>()
                 .FromInstance(_dragUIController)
                 .AsSingle()
                 .NonLazy();
             
-            Container.Bind<CraftingUIController>()
+            Container.Bind<ICraftingUIController>()
                 .FromInstance(_craftingUIController)
                 .AsSingle()
                 .NonLazy();

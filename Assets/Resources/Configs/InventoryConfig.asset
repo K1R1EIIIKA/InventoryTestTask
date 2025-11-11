@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53bf6d2a52bd4232955d02000d9ab814, type: 3}
   m_Name: InventoryConfig
   m_EditorClassIdentifier: 
-  <Width>k__BackingField: 5
-  <Height>k__BackingField: 4
+  <Width>k__BackingField: 7
+  <Height>k__BackingField: 6
   <ItemsPool>k__BackingField:
   - {fileID: 11400000, guid: 5896f56cfd5ef5b45a1ce02bb7cd2b79, type: 2}
   - {fileID: 11400000, guid: 1910b08d34725494cb536c6a6a146d07, type: 2}

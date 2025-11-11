@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using _Scripts.Configs;
+using _Scripts.InventoryLogic.Interfaces;
 using _Scripts.InventoryLogic.Item;
 using Zenject;
 
 namespace _Scripts.InventoryLogic.Crafting
 {
-    public class CraftingController
+    public class CraftingController : ICraftingController
     {
         [Inject] private InventoryConfig _inventoryConfig;
-        [Inject] private CraftingUIController _craftingUIController;
+        [Inject] private ICraftingUIController _craftingUIController;
 
         private RecipeData[] _recipes;
 

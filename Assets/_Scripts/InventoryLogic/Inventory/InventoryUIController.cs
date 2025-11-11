@@ -1,4 +1,5 @@
 ﻿using _Scripts.Extensions;
+using _Scripts.InventoryLogic.Interfaces;
 using _Scripts.InventoryLogic.Item;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace _Scripts.InventoryLogic.Inventory
 {
-    public class InventoryUIController : MonoBehaviour
+    public class InventoryUIController : MonoBehaviour, IInventoryUIController
     {
         [Inject] private DiContainer _diContainer;
         
@@ -14,7 +15,7 @@ namespace _Scripts.InventoryLogic.Inventory
         [SerializeField] private ItemSlotUI _itemSlotUIPrefab;
         [SerializeField] private ItemTooltipUI _tooltip;
             
-        public ItemSlot[,] Slots;
+        public ItemSlot[,] Slots { get; private set; }
         public bool IsTooltipVisible => _tooltip.gameObject.activeSelf;
         
         public void Initialize(int width, int height)

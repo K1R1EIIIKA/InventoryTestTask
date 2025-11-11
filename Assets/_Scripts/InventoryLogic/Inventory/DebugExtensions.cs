@@ -1,12 +1,10 @@
-﻿using System;
-using _Scripts.Configs;
-using _Scripts.Item;
+﻿using _Scripts.Configs;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace _Scripts.Inventory
+namespace _Scripts.InventoryLogic.Inventory
 {
     public class DebugExtensions : MonoBehaviour
     {
@@ -15,11 +13,13 @@ namespace _Scripts.Inventory
         
         [SerializeField] private Button _fillButton;
         [SerializeField] private Button _clearButton;
+        [SerializeField] private Button _sortButton;
 
         private void OnEnable()
         {
             _fillButton.onClick.AddListener(FillRandomItems);
             _clearButton.onClick.AddListener(ClearItems);
+            _sortButton.onClick.AddListener(SortItems);
             
             FillRandomItems();
         }
@@ -28,6 +28,11 @@ namespace _Scripts.Inventory
         {
             _fillButton.onClick.RemoveListener(FillRandomItems);
             _clearButton.onClick.RemoveListener(ClearItems);
+            _sortButton.onClick.RemoveListener(SortItems);
+        }
+        private void SortItems()
+        {
+            _inventoryController.SortInventory();
         }
 
         private void FillRandomItems()
@@ -55,6 +60,8 @@ namespace _Scripts.Inventory
                 }
             }
         }
+        
+        
         
         private ItemData GetRandomItem()
         {

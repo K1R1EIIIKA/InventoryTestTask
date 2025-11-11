@@ -1,4 +1,4 @@
-﻿using _Scripts.Item;
+﻿using System;
 using UnityEngine;
 
 namespace _Scripts.Configs
@@ -14,7 +14,7 @@ namespace _Scripts.Configs
         public Ingredient[] Ingredients;
         [SerializeField] public Ingredient[] Pattern = new Ingredient[9];
 
-        [System.Serializable]
+        [Serializable]
         public struct Ingredient
         {
             public ItemData Item;

@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace _Scripts.Item
+namespace _Scripts.InventoryLogic.Item
 {
     public class ItemTooltipUI : MonoBehaviour
     {

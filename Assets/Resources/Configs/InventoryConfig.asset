@@ -21,3 +21,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1f893384954c0034e8248e80f4069642, type: 2}
   - {fileID: 11400000, guid: 534ec638d2412b341a3a58ddf20cc414, type: 2}
   - {fileID: 11400000, guid: e68d328f616da3549ae47e4982d44b94, type: 2}
+  <RecipesPool>k__BackingField:
+  - {fileID: 11400000, guid: 3d236a9f7099b934eab413fcb9b9ac84, type: 2}
+  - {fileID: 11400000, guid: 34b6648b7ea16714188ebb8405abba60, type: 2}
+  - {fileID: 11400000, guid: bb187d89bad693a469bb0e943e20f6a8, type: 2}
+  - {fileID: 11400000, guid: cd5dea4604ae6af4181e440de495358e, type: 2}

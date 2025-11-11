@@ -1,10 +1,10 @@
 ﻿using _Scripts.Extensions;
-using _Scripts.Item;
+using _Scripts.InventoryLogic.Item;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace _Scripts.Inventory
+namespace _Scripts.InventoryLogic.Inventory
 {
     public class InventoryUIController : MonoBehaviour
     {

@@ -1,16 +1,18 @@
-﻿using _Scripts.Inventory;
+﻿using _Scripts.InventoryLogic.Crafting;
+using _Scripts.InventoryLogic.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 
-namespace _Scripts.Item
+namespace _Scripts.InventoryLogic.Item
 {
     public class ItemSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [Inject] private InventoryUIController _inventoryUIController;
         [Inject] private DragUIController _dragUIController;
+        [Inject] private CraftingUIController _craftingUIController;
 
         [SerializeField] private Image _icon;
         [SerializeField] private TextMeshProUGUI _countText;
@@ -63,6 +65,8 @@ namespace _Scripts.Item
         
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!Slot.Interactable) return;
+            
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 _dragUIController.SplitStack(this);
@@ -71,16 +75,23 @@ namespace _Scripts.Item
         
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!Slot.Interactable) return;
+            
+            if (Input.GetKey(KeyCode.LeftShift)) return;
             _dragUIController.BeginDrag(this);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!Slot.Interactable) return;
+            
             _dragUIController.Drag();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (!Slot.Interactable) return;
+            
             var target = eventData.pointerCurrentRaycast.gameObject
                 ? eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlotUI>()
                 : null;

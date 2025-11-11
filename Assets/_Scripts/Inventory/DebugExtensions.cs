@@ -1,0 +1,47 @@
+﻿using System;
+using _Scripts.Item;
+using UnityEngine;
+using UnityEngine.UI;
+using Zenject;
+using Random = UnityEngine.Random;
+
+namespace _Scripts.Inventory
+{
+    public class DebugExtensions : MonoBehaviour
+    {
+        [Inject] private InventoryUIController _inventoryUIController;
+        [Inject] private InventoryController _inventoryController;
+        
+        [SerializeField] private Button _fillButton;
+
+        private void OnEnable()
+        {
+            _fillButton.onClick.AddListener(FillRandomItems);
+        }
+        
+        private void OnDisable()
+        {
+            _fillButton.onClick.RemoveListener(FillRandomItems);
+        }
+
+        private void FillRandomItems()
+        {
+            for (int y = 0; y < _inventoryController.Height; y++)
+            {
+                for (int x = 0; x < _inventoryController.Width; x++)
+                {
+                    var slot = _inventoryUIController.Slots[x, y];
+
+                    var item = GetRandomItem();
+                    slot.SetItem(item, Random.Range(1, item.MaxStack + 1));
+                }
+            }
+        }
+        
+        private ItemData GetRandomItem()
+        {
+            var list = _inventoryController.ItemsPool;
+            return list[Random.Range(0, list.Length)];
+        }
+    }
+}

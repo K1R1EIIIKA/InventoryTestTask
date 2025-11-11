@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a6fa110020433a9603764603804962, type: 3}
+  m_Name: Stick Recipe
+  m_EditorClassIdentifier: 
+  Result: {fileID: 11400000, guid: 534ec638d2412b341a3a58ddf20cc414, type: 2}
+  ResultCount: 4
+  IsShaped: 0
+  Ingredients:
+  - Item: {fileID: 11400000, guid: e68d328f616da3549ae47e4982d44b94, type: 2}
+    Count: 2
+  - Item: {fileID: 11400000, guid: e68d328f616da3549ae47e4982d44b94, type: 2}
+    Count: 2
+  Pattern:
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0
+  - Item: {fileID: 0}
+    Count: 0

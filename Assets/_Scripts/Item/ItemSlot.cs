@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Configs;
 using UnityEngine;
 
 namespace _Scripts.Item

@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Configs;
 using _Scripts.Item;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,8 @@ namespace _Scripts.Inventory
         {
             _fillButton.onClick.AddListener(FillRandomItems);
             _clearButton.onClick.AddListener(ClearItems);
+            
+            FillRandomItems();
         }
         
         private void OnDisable()

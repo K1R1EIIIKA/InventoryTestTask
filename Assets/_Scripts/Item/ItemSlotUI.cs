@@ -85,8 +85,6 @@ namespace _Scripts.Item
                 ? eventData.pointerCurrentRaycast.gameObject.GetComponent<ItemSlotUI>()
                 : null;
 
-            Debug.Log(target);
-
             _dragUIController.EndDrag(target);
         }
     }

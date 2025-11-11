@@ -57,15 +57,21 @@ namespace _Scripts.InventoryLogic.Crafting
         {
             usedSlots = new List<(ItemSlot, int)>();
 
-            List<ItemSlot> free = new();
+            List<ItemSlot> occupied = new();
             for (int y = 0; y < 3; y++)
+            for (int x = 0; x < 3; x++)
+                if (!grid[x, y].IsEmpty)
+                    occupied.Add(grid[x, y]);
+
+            int requiredCount = recipe.Ingredients.Length;
+
+            if (occupied.Count != requiredCount)
             {
-                for (int x = 0; x < 3; x++)
-                {
-                    if (!grid[x, y].IsEmpty)
-                        free.Add(grid[x, y]);
-                }
+                usedSlots.Clear();
+                return false;
             }
+
+            List<ItemSlot> free = new List<ItemSlot>(occupied);
 
             foreach (var ing in recipe.Ingredients)
             {
@@ -78,8 +84,8 @@ namespace _Scripts.InventoryLogic.Crafting
                     if (slot.Item == ing.Item && slot.Count >= ing.Count)
                     {
                         matched = true;
-                        usedSlots.Add((slot, ing.Count)); 
-                        free.RemoveAt(i);                 
+                        usedSlots.Add((slot, ing.Count));
+                        free.RemoveAt(i);
                         break;
                     }
                 }
@@ -93,6 +99,7 @@ namespace _Scripts.InventoryLogic.Crafting
 
             return true;
         }
+
 
         private bool MatchShaped(RecipeData recipe, ItemSlot[,] grid)
         {
